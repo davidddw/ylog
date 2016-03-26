@@ -14,7 +14,7 @@ public class UserService {
     @Qualifier("userMapper")
     private UserMapper userMapper;
     
-    public User queryById(int id) throws Exception {
+    public User queryById(int id) {
         return userMapper.getUserByID(id);
     }
 

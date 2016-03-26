@@ -12,12 +12,12 @@ public interface UserMapper {
     String MQL_GET_USER_BY_ID = "select id, username, useruuid from user_v2_2 where id=#{id}";
 
     @Select(MQL_GET_USER_BY_NAME)
-    public User getUserByName(String username) throws Exception;
+    public User getUserByName(String username);
     
     @Select(MQL_GET_USER_BY_ID)
-    public User getUserByID(int id) throws Exception;
+    public User getUserByID(int id);
     
     @Select(MQL_GET_ALL_USERS)
-    public List<User> getUsers() throws Exception;
+    public List<User> getUsers();
     
 }

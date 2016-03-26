@@ -1,35 +1,68 @@
 package com.yunshan.main;
 
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.glassfish.jersey.servlet.ServletContainer;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.request.RequestContextListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.web.context.support.GenericWebApplicationContext;
+
+import com.yunshan.config.RootConfiguration;
 
 public class Main {
+
+    /**
+     * Flag that will be set to true when the web application context
+     * (SpringMVC) is refreshed.
+     */
+    static boolean webApplicationContextInitialized = false;
+
     public static void main(String[] args) throws Exception {
-        ApplicationConfig applicationConfig = new ApplicationConfig();
-        ServletHolder jerseyServlet = new ServletHolder(new ServletContainer(applicationConfig));
-        ServletContextHandler context = new ServletContextHandler();
-        context.setContextPath("/");
-        context.addServlet(jerseyServlet, "/rest/*");
-        context.addEventListener(new ContextLoaderListener());
-        context.addEventListener(new RequestContextListener());
-        context.setInitParameter("contextClass", AnnotationConfigWebApplicationContext.class.getName());
-        context.setInitParameter("contextConfigLocation", SpringJavaConfiguration.class.getName());
-        int port=8080;
-        if(args.length==1){
-            port=Integer.parseInt(args[0]);
-        }
-        Server server = new Server(port);
-        server.setHandler(context);
+
+        final Logger logger = LoggerFactory.getLogger("main");
+
+        AnnotationConfigApplicationContext applicationContext =
+                new AnnotationConfigApplicationContext();
         try {
-            server.start();
-            server.join();
+            
+
+            /*
+             * One problem with SpringMVC is it creates its own application
+             * context, and so it can end up failing but our application will
+             * keep running.
+             * 
+             * To detect the case where the SpringMVC's web application context
+             * fails we'll listen for ContextRefreshEvents and set a flag when
+             * we see the web application context refresh.
+             */
+            applicationContext.addApplicationListener(
+                    new ApplicationListener<ContextRefreshedEvent>() {
+                        @Override
+                        public void onApplicationEvent(
+                                ContextRefreshedEvent event) {
+                                    ApplicationContext ctx = event.getApplicationContext();
+                                    if (ctx instanceof GenericWebApplicationContext) {
+                                        webApplicationContextInitialized = true;
+                                    }
+                                }
+            });
+
+            applicationContext.registerShutdownHook();
+            applicationContext.register(RootConfiguration.class);
+            applicationContext.refresh();
+
+            if (!webApplicationContextInitialized) {
+                logger.error("Failed to initialize web application.  Exiting.");
+                System.exit(1);
+            }
+
+            logger.info("Running.");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error starting application", e);
+            applicationContext.close();
+            System.exit(1);
         }
     }
 }
+

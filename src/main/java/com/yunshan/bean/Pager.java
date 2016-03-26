@@ -1,7 +1,5 @@
 package com.yunshan.bean;
 
-import java.util.ArrayList;
-
 public class Pager {
 
     private int     pageId     = 1; // 当前页
@@ -43,7 +41,7 @@ public class Pager {
     public int[] getIndexs() {
         int len = getEndIndex() - getStartIndex() + 1;
         indexs = new int[len];
-        ArrayList a;
+        //ArrayList a;
         for (int i = 0; i < len; i++) {
             indexs[i] = (getStartIndex() + i);
         }
