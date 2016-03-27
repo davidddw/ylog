@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.livecloud.ylog.mapper.CategoryMapper">
+  <resultMap type="Category" id="categoryResultMap">
+    <result property="id" column="cate_id" />
+    <result property="name" column="cate_name" />
+    <result property="intro" column="cate_intro" />
+  </resultMap>
+
+  <select id="getCategories" resultMap="categoryResultMap">
+    SELECT
+    C.id AS cate_id,
+    C.name AS cate_name,
+    C.intro AS cate_intro
+    FROM `category` C
+    ORDER BY
+    id ASC
+  </select>
+
+  <select id="getCategory" resultMap="categoryResultMap">
+    SELECT
+    C.id AS cate_id,
+    C.name AS cate_name,
+    C.intro AS cate_intro
+    FROM `category` C
+    WHERE
+    C.id=#{id}
+  </select>
+
+  <select id="getCount" resultType="long">
+    SELECT
+    COUNT(*)
+    FROM
+    `category`
+  </select>
+
+  <insert id="addCategory" parameterType="Category" >
+    INSERT INTO
+    `category`(name,intro)
+    VALUES(#{name},#{intro})
+  </insert>
+
+  <update id="updateCategory" parameterType="Category" >
+    UPDATE
+    `category`
+    SET name=#{name},
+    intro=#{intro}
+    WHERE id=#{id}
+  </update>
+
+  <delete id="deleteCategory" parameterType="long">
+    DELETE FROM 
+    `category`
+    WHERE id=#{id}
+  </delete>
+
+</mapper>

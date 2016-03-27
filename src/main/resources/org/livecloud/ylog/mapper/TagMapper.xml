@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.livecloud.ylog.mapper.TagMapper">
+  <resultMap type="Tag" id="tagResultMap">
+    <result property="id" column="tag_id" />
+    <result property="name" column="tag_name" />
+    <result property="intro" column="tag_intro" />
+    <result property="count" column="tag_count" />
+  </resultMap>
+  <select id="findByName" resultMap="tagResultMap">
+    SELECT
+    id AS tag_id,
+    name AS tag_name,
+    intro AS tag_intro,
+    count AS tag_count
+    FROM `tag`
+    WHERE name=#{tagValue}
+  </select>
+
+  <select id="getOneTagByName" resultMap="tagResultMap">
+    SELECT
+    id AS tag_id,
+    name AS tag_name,
+    intro AS tag_intro,
+    count AS tag_count
+    FROM `tag`
+    WHERE name=#{tagValue}
+  </select>
+  
+  <select id="getAllTags" resultMap="tagResultMap">
+    SELECT
+    id AS tag_id,
+    name AS tag_name,
+    intro AS tag_intro,
+    count AS tag_count
+    FROM `tag`
+  </select>
+
+  <select id="getCount" resultType="long">
+    SELECT
+    COUNT(*)
+    FROM
+    `tag`
+  </select>
+
+  <insert id="addTag" parameterType="Tag" >
+    INSERT INTO
+    `Tag`(name,intro,count)
+    VALUES(#{name},#{intro},#{count})
+  </insert>
+
+  <update id="updateTag" parameterType="Tag" >
+    UPDATE
+    `Tag`
+    SET
+    name=#{name},
+    intro=#{intro},
+    count=#{count}
+    WHERE id=#{id}
+  </update>
+
+  <delete id="deleteTag" parameterType="long">
+    DELETE FROM 
+    `Tag`
+    WHERE id=#{id}
+  </delete>
+</mapper>

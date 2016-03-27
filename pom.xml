@@ -8,10 +8,8 @@
   <packaging>jar</packaging>
   <name>mblog</name>
   <properties>
-    <jetty.version>9.2.15.v20160210</jetty.version>
-    <jackson.version>1.9.6</jackson.version>
-    <springframework.version>4.2.5.RELEASE</springframework.version>
-    <springsecurity.version>4.0.4.RELEASE</springsecurity.version>
+    <jetty.version>9.1.6.v20160112</jetty.version>
+    <springframework.version>3.2.16.RELEASE</springframework.version>
     <codahale.metrics.version>3.0.2</codahale.metrics.version>
     <slf4j.version>1.7.19</slf4j.version>
     <logback.version>1.1.6</logback.version>
@@ -49,22 +47,6 @@
       <version>${springframework.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-      <version>${springsecurity.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-web</artifactId>
-      <version>${springsecurity.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-config</artifactId>
-      <version>${springsecurity.version}</version>
-    </dependency>
-
     <!-- Requirements for embedded Jetty. -->
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
@@ -88,11 +70,40 @@
       <artifactId>metrics-servlets</artifactId>
       <version>${codahale.metrics.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>4.0.3</version>
+    </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>3.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-core</artifactId>
+      <version>1.2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-web</artifactId>
+      <version>1.2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jasypt</groupId>
+      <artifactId>jasypt</artifactId>
+      <version>1.9.2</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
     </dependency>
 
     <!-- Mybatis 开发包 -->
@@ -182,7 +193,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.yunshan.main.Main</mainClass>
+              <mainClass>org.livecloud.ylog.Application</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

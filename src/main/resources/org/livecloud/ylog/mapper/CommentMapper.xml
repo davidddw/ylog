@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.livecloud.ylog.mapper.CommentMapper">
+  <resultMap type="Comment" id="commentResultMap">
+    <result property="id" column="comm_id" />
+    <result property="authorid" column="comm_authorid" />
+    <result property="author" column="comm_author" />
+    <result property="content" column="comm_content" />
+    <result property="email" column="comm_email" />
+    <result property="homepage" column="comm_homepage" />
+    <result property="posttime" column="comm_posttime" />
+    <association property="article" column="article_id" javaType="Article">
+      <id property="id" column="art_id" />
+      <result property="title" column="art_title" />
+    </association>
+  </resultMap>
+
+  <select id="getCommentsBySubmitDate" resultMap="commentResultMap">
+    SELECT 
+    C.id AS comm_id,
+    C.authorid AS comm_authorid,
+    C.author AS comm_author,
+    C.content AS comm_content,
+    C.email AS comm_email,
+    C.homepage AS comm_homepage,
+    C.posttime AS comm_posttime,
+    A.id AS art_id,
+    A.title AS art_title
+    FROM `comment` C
+    LEFT OUTER JOIN `article` A ON C.article=A.id
+    ORDER BY C.posttime DESC
+  </select>
+
+  <select id="getCommentsByArticle" resultMap="commentResultMap">
+    SELECT 
+    C.id AS comm_id,
+    C.authorid AS comm_authorid,
+    C.author AS comm_author,
+    C.content AS comm_content,
+    C.email AS comm_email,
+    C.homepage AS comm_homepage,
+    C.posttime AS comm_posttime,
+    A.id AS art_id,
+    A.title AS art_title
+    FROM `comment` C
+    LEFT OUTER JOIN `article` A ON C.article=A.id
+    WHERE A.id = #{articleId}
+    ORDER BY C.posttime DESC
+  </select>
+  
+  <select id="getComment" resultMap="commentResultMap">
+    SELECT 
+    C.id AS comm_id,
+    C.authorid AS comm_authorid,
+    C.author AS comm_author,
+    C.content AS comm_content,
+    C.email AS comm_email,
+    C.homepage AS comm_homepage,
+    C.posttime AS comm_posttime
+    WHERE C.id = #{id}
+  </select>
+  
+  <select id="getCount" resultType="long" >
+    SELECT 
+    COUNT(*)
+    FROM
+    `comment`
+  </select>
+</mapper>

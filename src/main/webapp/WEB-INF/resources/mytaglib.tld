@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+    	http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+  version="2.1">
+  <tlib-version>1.2</tlib-version>
+  <short-name>mytaglib</short-name>
+  <uri>/mytaglib</uri>
+  <tag>
+    <name>capital</name>
+    <tag-class>org.livecloud.ylog.utils.Capitalize</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <name>dateFormat</name>
+    <tag-class>org.livecloud.ylog.utils.MyDateFormat</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <name>cutHtml</name>
+    <tag-class>org.livecloud.ylog.utils.CutHtml</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <description>Collection of items to iterate over.</description>
+      <name>length</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.Object</type>
+    </attribute>
+    <attribute>
+      <description>url</description>
+      <name>ellipsis</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.Object</type>
+    </attribute>
+  </tag>
+
+  <tag>
+    <description>Pagination</description>
+    <name>Pagination</name>
+    <tag-class>org.livecloud.ylog.utils.PageTag</tag-class>
+    <body-content>empty</body-content>
+
+    <attribute>
+      <description>Collection of items to iterate over.</description>
+      <name>pagination</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.Object</type>
+    </attribute>
+    <attribute>
+      <description>url</description>
+      <name>url</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.Object</type>
+    </attribute>
+    <attribute>
+      <description>suffix</description>
+      <name>suffix</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.Object</type>
+    </attribute>
+  </tag>
+</taglib>
