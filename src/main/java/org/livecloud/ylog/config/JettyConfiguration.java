@@ -44,6 +44,7 @@ public class JettyConfiguration {
 
         /* Disable directory listings if no index.html is found. */
         ctx.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "false");
+        ctx.setInitParameter("ttfFile", "/WEB-INF/resources/verdanab.ttf");
 
         /* Create the root web application context and set it as a servlet
          * attribute so the dispatcher servlet can find it. */
