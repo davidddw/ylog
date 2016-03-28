@@ -39,6 +39,7 @@ public class JettyConfiguration {
 
         WebAppContext ctx = new WebAppContext();
         ctx.setContextPath("/");
+        
         //System.out.println(new ClassPathResource("webapp").getURI().toString());
         ctx.setWar(new ClassPathResource("webapp").getURI().toString());
 

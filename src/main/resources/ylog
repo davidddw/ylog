@@ -1,0 +1,77 @@
+#!/bin/sh
+# resourceJOB.sh 
+# description: this script starts and stops the resourceJOB daemon
+# processname: resourceJOB 
+# chmod 775 *
+resourceJOB="/opt/ylog-4.0.0-SNAPSHOT-jar-with-dependencies.jar"
+prog=ylog
+
+start() 
+{
+    PID=$(ps aux | grep $prog | grep -v grep | grep -v init | awk '{print $2}'|xargs)
+    if [  "$PID" ] ;then 
+        echo -n "$prog had been started!"
+        echo -e '\033[60G[\033[0;31mFAILED\033[0m]'
+        return 1
+    fi
+    echo -n $"Starting $prog: "
+    echo -e '\033[60G[  \033[0;32mOK\033[0m  ]'
+    java -Dfile.encoding=UTF-8 -Xmx512m -Xms256m -Xmn128m -jar $resourceJOB nohup &
+    return 0
+}
+
+stop()
+{ 
+    echo -n $"Stopping $prog: " 
+    PID=$(ps aux | grep $prog | grep -v grep | grep -v init | awk '{print $2}'|xargs)
+    if [ "$PID" ] ;then
+        kill -9  $PID > 2&>1
+    else
+        echo -e '\033[60G[\033[0;31mFAILED\033[0m]'
+        return 1
+    fi
+    retval=$?
+    if [ "$retval" -eq 0 ] ;then
+        echo -e '\033[60G[  \033[0;32mOK\033[0m  ]'
+    else
+        echo -e '\033[60G[\033[0;31mFAILED\033[0m]'
+    fi 
+    [ $retval -eq 0 ] && rm -f $lockfile 
+    return $retval 
+}
+ 
+restart() 
+{ 
+    stop 
+    sleep 1 
+    start 
+}
+ 
+status() {
+    PID=$(ps aux | grep $prog | grep -v grep | awk '{print $2}'|xargs)
+    if [ "$PID" ] ;then    
+        echo "$prog is running!"
+        return 1
+    else
+        echo "$prog is stopped!"
+        return 0     
+    fi
+} 
+
+case "$1" in 
+    start) 
+        start   
+        ;; 
+    stop) 
+        stop 
+        ;; 
+    restart) 
+        restart
+        ;; 
+    status) 
+        status
+        ;; 
+    *)    
+        echo $"Usage: ylog {start|stop|status|restart}" 
+        exit 2
+esac

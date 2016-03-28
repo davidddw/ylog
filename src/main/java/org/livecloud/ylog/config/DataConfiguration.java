@@ -22,7 +22,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @MapperScan(basePackages = {"org.livecloud.ylog.mapper"})
-@PropertySource("classpath:jdbc.properties")
+@PropertySource("file:/etc/ylog/jdbc.properties")
 public class DataConfiguration {
     
     final Logger logger = LoggerFactory.getLogger(getClass());

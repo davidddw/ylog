@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
   <name>ylog</name>
   <properties>
-    <jetty.version>9.1.6.v20160112</jetty.version>
+    <jetty.version>9.2.15.v20160210</jetty.version>
     <springframework.version>3.2.16.RELEASE</springframework.version>
     <codahale.metrics.version>3.0.2</codahale.metrics.version>
     <slf4j.version>1.7.19</slf4j.version>
