@@ -48,7 +48,7 @@ restart()
 }
  
 status() {
-    PID=$(ps aux | grep $prog | grep -v grep | awk '{print $2}'|xargs)
+    PID=$(ps aux | grep $prog | grep -v grep | grep -v init | awk '{print $2}'|xargs)
     if [ "$PID" ] ;then    
         echo "$prog is running!"
         return 1
