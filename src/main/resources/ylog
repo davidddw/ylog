@@ -3,7 +3,7 @@
 # description: this script starts and stops the resourceJOB daemon
 # processname: resourceJOB 
 # chmod 775 *
-resourceJOB="/opt/ylog-4.0.0-SNAPSHOT-jar-with-dependencies.jar"
+resourceJOB="/opt/ylog-4.0.0.jar"
 prog=ylog
 
 start() 
@@ -36,7 +36,8 @@ stop()
     else
         echo -e '\033[60G[\033[0;31mFAILED\033[0m]'
     fi 
-    [ $retval -eq 0 ] && rm -f $lockfile 
+    [ $retval -eq 0 ] && rm -f $lockfile
+    rm -fr /usr/tmp/jetty-0.0.0.0-8080-webapp-_-any-
     return $retval 
 }
  

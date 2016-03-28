@@ -39,6 +39,7 @@ public class NodeController extends BaseController{
 	private static final String TAG = "/node/tag/{tagName:[a-zA-Z0-9-]+}";
 	private static final String ARTICLE = "/node/article/{articleId}";
 	private static final String VALIDATE = "/validateCode";
+	private static final String ERROR404 = "/errorpage";
 
 	@RequestMapping(value = {HOME ,HOMEPAGE})
 	public String homePage(@ModelAttribute("options") HashMap<String, String> options, 
@@ -128,6 +129,11 @@ public class NodeController extends BaseController{
         BufferedImage bim = ValidateCode.generateImageCode(verifyCode, 90, 30, 3, true, null, null, null, request.getServletContext());
         ImageIO.write(bim, "JPEG", response.getOutputStream());
     }
+	
+	@RequestMapping(value = ERROR404)
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return "default/404";
+	}
 	
 	@RequestMapping(value = "/node/postComment")
 	public @ResponseBody Map<String, Object> addComment(CommentInfo commentInfo, HttpServletRequest request) {
