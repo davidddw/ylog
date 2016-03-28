@@ -36,16 +36,17 @@ public class Application {
              * we see the web application context refresh.
              */
             applicationContext.addApplicationListener(
-                    new ApplicationListener<ContextRefreshedEvent>() {
+            		new ApplicationListener<ContextRefreshedEvent>() {
                         @Override
                         public void onApplicationEvent(
-                                ContextRefreshedEvent event) {
+                        		ContextRefreshedEvent event) {
                                     ApplicationContext ctx = event.getApplicationContext();
                                     if (ctx instanceof GenericWebApplicationContext) {
                                         webApplicationContextInitialized = true;
                                     }
                                 }
-            });
+            			}
+            );
 
             applicationContext.registerShutdownHook();
             applicationContext.register(RootConfiguration.class);

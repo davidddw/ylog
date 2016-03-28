@@ -58,15 +58,14 @@ public class JettyConfiguration {
 		webApplicationContext.setParent(applicationContext);
 		webApplicationContext.refresh();
 		ctx.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, webApplicationContext);
-		ctx.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",
-				".*/.*jsp-api-[^/]*\\.jar$|.*/.*jsp-[^/]*\\.jar$|.*/.*taglibs[^/]*\\.jar$");
+
 		/*
 		 * Set the attributes that the Metrics servlets require. The Metrics
 		 * servlet is added in the WebAppInitializer.
 		 */
 		ctx.setAttribute(MetricsServlet.METRICS_REGISTRY, metricRegistry);
 		ctx.setAttribute(HealthCheckServlet.HEALTH_CHECK_REGISTRY, healthCheckRegistry);
-		ctx.setAttribute("org.eclipse.jetty.webapp.basetempdir", "/usr/tmp");
+		ctx.setAttribute(WebAppContext.BASETEMPDIR, "/usr/tmp");
 		ctx.setPersistTempDirectory(true);
 
 		ctx.setErrorHandler(createErrorHandler());
