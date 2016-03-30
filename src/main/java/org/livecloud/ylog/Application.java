@@ -16,10 +16,9 @@ public class Application {
      * (SpringMVC) is refreshed.
      */
     static boolean webApplicationContextInitialized = false;
-
-    public static void main(String[] args) throws Exception {
-
-        final Logger logger = LoggerFactory.getLogger("Application");
+    
+    public static void jettyServer() {
+    	final Logger logger = LoggerFactory.getLogger("Application");
 
         AnnotationConfigApplicationContext applicationContext =
                 new AnnotationConfigApplicationContext();
@@ -63,6 +62,11 @@ public class Application {
             applicationContext.close();
             System.exit(1);
         }
+    }
+    
+    public static void main(String[] args) {
+    	jettyServer();
+        
     }
 }
 

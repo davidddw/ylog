@@ -72,7 +72,7 @@
   </appender>
 
   <root>
-    <priority value="FATAL" />
+    <priority value="WARN" />
     <appender-ref ref="LOG.DEBUG" />
     <appender-ref ref="LOG.INFO" />
     <appender-ref ref="LOG.WARN" />
