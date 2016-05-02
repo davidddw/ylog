@@ -141,7 +141,7 @@
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
+      <artifactId>slf4j-simple</artifactId>
       <version>${slf4j.version}</version>
     </dependency>
     <dependency>
@@ -170,7 +170,7 @@
   <build>
     <resources>
       <resource>
-        <targetPath>/webapp</targetPath>
+        <targetPath>webapp</targetPath>
         <directory>src/main/webapp</directory>
       </resource>
       <resource>
